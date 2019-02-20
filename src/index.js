@@ -5,5 +5,5 @@ import { GlobalStyle } from "./style.js";
 import { GlobalIconFontStyle } from './statics/iconfont/iconfont.js'
 
 
-ReactDOM.render(<Fragment><GlobalStyle /><GlobalIconFontStyle/><App /></Fragment>, document.getElementById('root'));
+ReactDOM.render(<Fragment><GlobalStyle /><GlobalIconFontStyle /><App /></Fragment>, document.getElementById('root'));
 
