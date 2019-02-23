@@ -3,19 +3,30 @@ import { fromJS } from 'immutable';
 
 const defaultStore = fromJS({
     focused: false,
+    mouseIn: false,
     list: [],
+    page: 0,
+    totalPage: 1
 });
 
 export default (state = defaultStore, action) => {
-    if (action.type === constants.SEARCH_FOCUS) {
-        //会返回一个新的对象
-        return state.set('focused', true);
+    switch (action.type) {
+        case constants.SEARCH_FOCUS:
+            return state.set('focused', true);
+        case constants.SEARCH_BLUR:
+            return state.set('focused', false);
+        case constants.CHANGE_LIST:
+            return state.merge({
+                list: action.data,
+                totalPage: action.totalPage
+            })
+        case constants.MOUSE_ENTER:
+            return state.set('mouseIn', true);
+        case constants.MOUSE_LEAVE:
+            return state.set('mouseIn', false);
+        case constants.CHANGE_PAGE: 
+            return state.set('page', (state.get('page') + 1) % state.get('totalPage'));
+        default:
+            return state;
     }
-    if (action.type === constants.SEARCH_BLUR) {
-        return state.set('focused', false);
-    }
-    if (action.type === constants.CHANGE_LIST) {
-        return state.set('list', action.data);
-    }
-    return state
 }

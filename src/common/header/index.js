@@ -14,18 +14,34 @@ import {
 class Header extends React.Component {
 
     getListArea = () => {
-        if (this.props.focused) {
+        const { focused, mouseIn, list, page, handleMouseEnter, handleMouseLeave, handleChangePage } = this.props;
+        const jsList = list.toJS();
+        const pageList = [];
+        if (jsList.length) {
+            for (let index = (page * 10); index < ((page + 1) * 10); index++) {
+                if (jsList[index]) {
+                    pageList.push(
+                        <SearchInfoItem key={jsList[index]}>{jsList[index]}</SearchInfoItem>
+                    )
+                }
+            }
+        }
+        if (focused || mouseIn) {
             return (
-                <SearchInfo>
+                <SearchInfo
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}>
                     <SearchInfoTitle>
                         热门搜索
-                                <SearchInfoSwitch>换一批</SearchInfoSwitch>
+                                <SearchInfoSwitch
+                            onClick={() => handleChangePage(this.spinIcon)}>
+                            <i ref={(icon) => {this.spinIcon = icon}} className="iconfont spin">&#xe851;</i>
+                            换一批
+                                </SearchInfoSwitch>
                     </SearchInfoTitle>
                     <SearchInfoList>
                         {
-                            this.props.list.map((item) => {
-                            return <SearchInfoItem key={item}>{item}</SearchInfoItem>
-                        })
+                            pageList
                         }
                     </SearchInfoList>
                 </SearchInfo>
@@ -36,6 +52,7 @@ class Header extends React.Component {
     }
 
     render() {
+        const { focused, handleInputBlur, handleInputFocus } = this.props;
         return (
             <HeaderWrapper>
                 <Logo />
@@ -48,17 +65,17 @@ class Header extends React.Component {
                     </NavItem>
                     <SearchWrapper>
                         <CSSTransition
-                            in={this.props.focused}
+                            in={focused}
                             timeout={2000}
                             classNames="slide"
                         >
                             <NavSearch
-                                className={this.props.focused ? 'focused' : ''}
-                                onFocus={this.props.handleInputFocus}
-                                onBlur={this.props.handleInputBlur}
+                                className={focused ? 'focused' : ''}
+                                onFocus={handleInputFocus}
+                                onBlur={handleInputBlur}
                             ></NavSearch>
                         </CSSTransition>
-                        <i className={this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe614;</i>
+                        <i className={focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe614;</i>
                         {this.getListArea()}
                     </SearchWrapper>
                 </Nav>
@@ -78,7 +95,10 @@ class Header extends React.Component {
 const mapStateToProps = (state) => {
     return {
         focused: state.get('header').get('focused'),
-        list: state.get('header').get('list')
+        list: state.get('header').get('list'),
+        page: state.get('header').get('page'),
+        totalPage: state.get('header').get('totalPage'),
+        mouseIn: state.get('header').get('mouseIn'),
     }
 }
 
@@ -90,6 +110,22 @@ const mapDispatchToProps = (dispatch) => {
         },
         handleInputBlur() {
             dispatch(actionCreators.searchBlur());
+        },
+        handleMouseEnter() {
+            dispatch(actionCreators.mouseEnter());
+        },
+        handleMouseLeave() {
+            dispatch(actionCreators.mouseLeave());
+        },
+        handleChangePage(spin) {
+            let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
+            if(originAngle) {
+                originAngle = parseInt(originAngle, 10);
+            }else {
+                originAngle = 0;
+            }
+            spin.style.transform = 'rotate(' + (originAngle+360) + 'deg)';
+            dispatch(actionCreators.changePage());
         }
 
     }
