@@ -1,0 +1,52 @@
+{
+    "success": true,
+    "data": {
+        "topicList": [
+            {
+                "id": 1,
+                "title": "社会热点",
+                "imgUrl": "https://upload.jianshu.io/users/upload_avatars/13213889/7314c5cc-ca7f-4542-b914-2c8dffaf324d.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp"
+            },
+            {
+                "id": 2,
+                "title": "手绘",
+                "imgUrl": "https://upload.jianshu.io/users/upload_avatars/13213889/7314c5cc-ca7f-4542-b914-2c8dffaf324d.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp"
+            },
+            {
+                "id": 3,
+                "title": "图片",
+                "imgUrl": "https://upload.jianshu.io/users/upload_avatars/13213889/7314c5cc-ca7f-4542-b914-2c8dffaf324d.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp"
+            }
+        ],
+        "articleList": [
+            {
+                "id": 1,
+                "title": "一个女人好不好追，对她说这“三个字”，就心里有数了",
+                "desc": "都说“男追女隔座山，女追男隔层纱”，在感情问题里，女人追求男人似乎更容易的多，只要女人开口和男人表白，男人基本上都会同意。 但男人追求女人就没有.",
+                "imgUrl": "https://upload-images.jianshu.io/upload_images/16050459-82dc90b755b47774.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/360/h/240"
+            },
+            {
+                "id": 2,
+                "title": "一个女人好不好追，对她说这“三个字”，就心里有数了",
+                "desc": "都说“男追女隔座山，女追男隔层纱”，在感情问题里，女人追求男人似乎更容易的多，只要女人开口和男人表白，男人基本上都会同意。 但男人追求女人就没有.",
+                "imgUrl": "https://upload-images.jianshu.io/upload_images/16050459-82dc90b755b47774.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/360/h/240"
+            },
+            {
+                "id": 3,
+                "title": "一个女人好不好追，对她说这“三个字”，就心里有数了",
+                "desc": "都说“男追女隔座山，女追男隔层纱”，在感情问题里，女人追求男人似乎更容易的多，只要女人开口和男人表白，男人基本上都会同意。 但男人追求女人就没有.",
+                "imgUrl": "https://upload-images.jianshu.io/upload_images/16050459-82dc90b755b47774.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/360/h/240"
+            }
+        ],
+        "recommendList": [
+            {
+                "id": 0,
+                "imgUrl": "https://cdn2.jianshu.io/assets/web/banner-s-4-b70da70d679593510ac93a172dfbaeaa.png"
+            },
+            {
+                "id": 1,
+                "imgUrl": "https://cdn2.jianshu.io/assets/web/banner-s-5-4ba25cf5041931a0ed2062828b4064cb.png"
+            }
+        ]
+    }
+}
