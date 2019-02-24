@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { actionCreators } from './store';
+import { actionCreators as loginActionCreators } from '../../pages/login/store'
 import { CSSTransition } from 'react-transition-group';
 import {
     HeaderWrapper, Logo, Nav, NavItem,
@@ -37,7 +38,7 @@ class Header extends React.Component {
                         热门搜索
                                 <SearchInfoSwitch
                             onClick={() => handleChangePage(this.spinIcon)}>
-                            <i ref={(icon) => {this.spinIcon = icon}} className="iconfont spin">&#xe851;</i>
+                            <i ref={(icon) => { this.spinIcon = icon }} className="iconfont spin">&#xe851;</i>
                             换一批
                                 </SearchInfoSwitch>
                     </SearchInfoTitle>
@@ -54,16 +55,21 @@ class Header extends React.Component {
     }
 
     render() {
-        const { focused, handleInputBlur, handleInputFocus, list } = this.props;
+        const { focused, handleInputBlur, handleInputFocus, list, login, logout } = this.props;
         return (
             <HeaderWrapper>
                 <Link key='a' to='/'>
-                <Logo />
+                    <Logo />
                 </Link>
                 <Nav>
                     <NavItem className='left active'>首页</NavItem>
                     <NavItem className='left'>下载App</NavItem>
-                    <NavItem className='right'>登录</NavItem>
+                    {
+                        login ?
+                            <NavItem onClick={logout} className='right'>退出</NavItem> :
+                            <Link key='login' to='/login'><NavItem className='right'>登录</NavItem></Link>
+                    }
+
                     <NavItem className='right'>
                         <i className="iconfont">&#xe636;</i>
                     </NavItem>
@@ -84,9 +90,11 @@ class Header extends React.Component {
                     </SearchWrapper>
                 </Nav>
                 <Addition>
-                    <Button className='writting'>
-                        <i className="iconfont">&#xe615;</i>写文章
+                    <Link to='/write'>
+                        <Button className='writting'>
+                            <i className="iconfont">&#xe615;</i>写文章
                 </Button>
+                    </Link>
                     <Button className='reg'>注册</Button>
 
                 </Addition>
@@ -103,6 +111,7 @@ const mapStateToProps = (state) => {
         page: state.get('header').get('page'),
         totalPage: state.get('header').get('totalPage'),
         mouseIn: state.get('header').get('mouseIn'),
+        login: state.getIn(['login', 'login']),
     }
 }
 
@@ -123,13 +132,16 @@ const mapDispatchToProps = (dispatch) => {
         },
         handleChangePage(spin) {
             let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
-            if(originAngle) {
+            if (originAngle) {
                 originAngle = parseInt(originAngle, 10);
-            }else {
+            } else {
                 originAngle = 0;
             }
-            spin.style.transform = 'rotate(' + (originAngle+360) + 'deg)';
+            spin.style.transform = 'rotate(' + (originAngle + 360) + 'deg)';
             dispatch(actionCreators.changePage());
+        },
+        logout() {
+            dispatch(loginActionCreators.logout());
         }
 
     }

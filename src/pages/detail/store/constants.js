@@ -1,0 +1,1 @@
+export const CHAGNE_DETAIL = 'detail/CHANGE_DETAIL'
